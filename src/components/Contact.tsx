@@ -1,30 +1,71 @@
 import { useState } from 'react';
-import { Mail, Phone, MapPin, Send, Calendar, Briefcase } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Calendar, Briefcase, CheckCircle, XCircle, Linkedin, Github } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import emailjs from '@emailjs/browser';
 
 function Contact() {
   const { elementRef: titleRef, isVisible: titleVisible } = useScrollAnimation();
-  const { elementRef: leftRef, isVisible: leftVisible } = useScrollAnimation();
-  const { elementRef: rightRef, isVisible: rightVisible } = useScrollAnimation();
-  const { elementRef: cardsRef, isVisible: cardsVisible } = useScrollAnimation();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    service: 'development',
     message: '',
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => {
-      alert('Form submitted! I will contact you soon.');
+    setSubmitStatus('idle');
+    setErrorMessage('');
+
+    try {
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+      if (!serviceId || !templateId || !publicKey) {
+        throw new Error('EmailJS configuration is missing. Please set up your .env file.');
+      }
+
+      // Send email using EmailJS
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: formData.name,
+          reply_to: formData.email,
+          from_email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
+          to_name: 'Karan Patel',
+          submitted_date: new Date().toLocaleString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+          })
+        },
+        publicKey
+      );
+
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', phone: '', message: '' });
+      
+      // Reset success message after 5 seconds
+      setTimeout(() => setSubmitStatus('idle'), 5000);
+    } catch (error) {
+      console.error('Failed to send email:', error);
+      setSubmitStatus('error');
+      setErrorMessage(error instanceof Error ? error.message : 'Failed to send message. Please try again or contact directly via email.');
+    } finally {
       setIsSubmitting(false);
-      setFormData({ name: '', email: '', phone: '', service: 'development', message: '' });
-    }, 1000);
+    }
   };
 
   const handleChange = (
@@ -47,26 +88,25 @@ function Contact() {
   return (
     <div className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-amber-50 to-orange-100">
       <div className="max-w-7xl mx-auto">
-        <div ref={titleRef} className={`text-center mb-16 ${titleVisible ? 'opacity-100' : 'opacity-0'}`}>
-          <div className={`inline-block bg-cyan-300 border-4 border-black px-6 py-3 -rotate-1 mb-6 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] ${titleVisible ? 'animate-scale-in' : ''}`}>
+        <div ref={titleRef} className={`text-center mb-16 ${titleVisible ? 'animate-fade-in' : 'opacity-0'}`}>
+          <div className="inline-block bg-cyan-300 border-4 border-black px-6 py-3 -rotate-1 mb-6 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
             <h2 className="text-5xl sm:text-6xl font-black">GET IN TOUCH</h2>
           </div>
-          <p className={`text-xl font-bold max-w-2xl mx-auto ${titleVisible ? 'animate-fade-in animation-delay-200' : ''}`}>
+          <p className="text-xl font-bold max-w-2xl mx-auto">
             Let's discuss your next Salesforce project and bring your vision to life
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-          <div ref={leftRef} className={`space-y-6 ${leftVisible ? 'opacity-100' : 'opacity-0'}`}>
+          <div className="space-y-6">
             {contactInfo.map((info, index) => {
               const Icon = info.icon;
-              const animationDelay = index === 1 ? 'animation-delay-200' : index === 2 ? 'animation-delay-400' : '';
               return (
                 <div
                   key={info.label}
                   className={`${info.color} border-4 border-black p-6 ${
                     index % 2 === 0 ? 'rotate-1' : '-rotate-1'
-                  } hover:rotate-0 transition-all shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] ${leftVisible ? `animate-slide-right ${animationDelay}` : ''}`}
+                  } hover:rotate-0 transition-all shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]`}
                 >
                   <Icon className="w-10 h-10 mb-3" strokeWidth={3} />
                   <h3 className="text-2xl font-black mb-2">{info.label}</h3>
@@ -75,7 +115,7 @@ function Contact() {
               );
             })}
 
-            <div className={`bg-orange-400 border-4 border-black p-8 rotate-1 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] ${leftVisible ? 'animate-slide-right animation-delay-600' : ''}`}>
+            <div className="bg-orange-400 border-4 border-black p-8 rotate-1 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
               <h3 className="text-3xl font-black mb-4">AVAILABILITY</h3>
               <div className="space-y-2 font-bold text-lg">
                 <p>Open to new opportunities</p>
@@ -84,28 +124,35 @@ function Contact() {
               </div>
             </div>
 
-            <div className={`bg-emerald-400 border-4 border-black p-8 -rotate-1 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] ${leftVisible ? 'animate-slide-right animation-delay-800' : ''}`}>
+            <div className="bg-emerald-400 border-4 border-black p-8 -rotate-1 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
               <h3 className="text-3xl font-black mb-4">CONNECT</h3>
               <a
                 href="https://linkedin.com/in/patelkaran0104"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-bold text-lg hover:underline block mb-2"
+                className="font-bold text-lg hover:underline mb-2 flex items-center gap-2"
               >
+                <Linkedin className="w-5 h-5" strokeWidth={3} />
                 LinkedIn: @patelkaran0104
               </a>
               <a
                 href="https://github.com/PatelKaran0104"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-bold text-lg hover:underline block"
+                className="font-bold text-lg hover:underline flex items-center gap-2"
               >
+                <Github className="w-5 h-5" strokeWidth={3} />
                 GitHub: @PatelKaran0104
               </a>
             </div>
           </div>
 
-          <div ref={rightRef} className={`bg-white border-4 border-black p-8 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] ${rightVisible ? 'animate-slide-left' : 'opacity-0'}`}>
+          <div className="bg-white border-4 border-black p-8 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] relative">
+            {/* Fun decorative element - Desktop only */}
+            <div className="hidden lg:flex absolute -top-8 -right-8 bg-yellow-300 border-4 border-black w-20 h-20 items-center justify-center rotate-12 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+              <span className="text-4xl">💬</span>
+            </div>
+            
             <h3 className="text-3xl font-black mb-6">CONTACT FORM</h3>
 
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -144,22 +191,8 @@ function Contact() {
                   onChange={handleChange}
                   required
                   className="w-full border-4 border-black p-3 font-bold focus:outline-none focus:ring-4 focus:ring-yellow-300"
-                  placeholder="+91 1234567890"
+                  placeholder="+49 1234567890"
                 />
-              </div>
-
-              <div>
-                <label className="block font-black mb-2 text-lg">I'M INTERESTED IN</label>
-                <select
-                  name="service"
-                  value={formData.service}
-                  onChange={handleChange}
-                  className="w-full border-4 border-black p-3 font-bold focus:outline-none focus:ring-4 focus:ring-yellow-300"
-                >
-                  <option value="development">Custom Development</option>
-                  <option value="integration">Integration Project</option>
-                  <option value="implementation">Full Implementation</option>
-                </select>
               </div>
 
               <div>
@@ -189,12 +222,39 @@ function Contact() {
                   </>
                 )}
               </button>
+
+              {/* Success Message */}
+              {submitStatus === 'success' && (
+                <div className="bg-emerald-300 border-4 border-black p-4 flex items-center gap-3 animate-fade-in">
+                  <CheckCircle className="w-6 h-6 flex-shrink-0" />
+                  <p className="font-bold">
+                    Message sent successfully! I'll get back to you soon.
+                  </p>
+                </div>
+              )}
+
+              {/* Error Message */}
+              {submitStatus === 'error' && (
+                <div className="bg-rose-300 border-4 border-black p-4 flex items-start gap-3 animate-fade-in">
+                  <XCircle className="w-6 h-6 flex-shrink-0 mt-1" />
+                  <div className="font-bold">
+                    <p className="mb-2">Failed to send message.</p>
+                    {errorMessage && <p className="text-sm">{errorMessage}</p>}
+                    <p className="text-sm mt-2">
+                      Please email directly at:{' '}
+                      <a href="mailto:khpatel0104@gmail.com" className="underline">
+                        khpatel0104@gmail.com
+                      </a>
+                    </p>
+                  </div>
+                </div>
+              )}
             </form>
           </div>
         </div>
 
-        <div ref={cardsRef} className={`grid grid-cols-1 md:grid-cols-2 gap-8 ${cardsVisible ? 'opacity-100' : 'opacity-0'}`}>
-          <div className={`bg-rose-400 border-4 border-black p-8 rotate-1 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:-rotate-1 transition-all ${cardsVisible ? 'animate-scale-in' : ''}`}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="bg-rose-400 border-4 border-black p-8 rotate-1 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:-rotate-1 transition-all">
             <Calendar className="w-12 h-12 mb-4" strokeWidth={3} />
             <h3 className="text-3xl font-black mb-3">SCHEDULE A CALL</h3>
             <p className="font-bold text-lg mb-6">
@@ -205,7 +265,7 @@ function Contact() {
             </a>
           </div>
 
-          <div className={`bg-yellow-300 border-4 border-black p-8 -rotate-1 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:rotate-1 transition-all ${cardsVisible ? 'animate-scale-in animation-delay-200' : ''}`}>
+          <div className="bg-yellow-300 border-4 border-black p-8 -rotate-1 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:rotate-1 transition-all">
             <Briefcase className="w-12 h-12 mb-4" strokeWidth={3} />
             <h3 className="text-3xl font-black mb-3">HIRE FOR PROJECT</h3>
             <p className="font-bold text-lg mb-6">

@@ -1,0 +1,10 @@
+# Allow all search engines to crawl everything
+User-agent: *
+Allow: /
+
+# Block access to specific files (if needed in future)
+# Disallow: /admin/
+# Disallow: /private/
+
+# Sitemap location (update with your actual domain after deployment)
+Sitemap: https://your-netlify-site.netlify.app/sitemap.xml

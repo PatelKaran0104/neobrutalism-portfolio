@@ -3,10 +3,6 @@ import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 function Portfolio() {
   const { elementRef: titleRef, isVisible: titleVisible } = useScrollAnimation();
-  const { elementRef: profileRef, isVisible: profileVisible } = useScrollAnimation();
-  const { elementRef: projectsTitleRef, isVisible: projectsTitleVisible } = useScrollAnimation();
-  const { elementRef: projectsRef, isVisible: projectsVisible } = useScrollAnimation();
-  const { elementRef: certsRef, isVisible: certsVisible } = useScrollAnimation();
   const skills = [
     { name: 'SALESFORCE LWC', level: 95, color: 'bg-cyan-300' },
     { name: 'APEX', level: 90, color: 'bg-emerald-400' },
@@ -59,16 +55,16 @@ function Portfolio() {
   return (
     <div className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-7xl mx-auto">
-        <div ref={titleRef} className={`text-center mb-16 ${titleVisible ? 'opacity-100' : 'opacity-0'}`}>
-          <div className={`inline-block bg-emerald-400 border-4 border-black px-6 py-3 rotate-1 mb-6 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] ${titleVisible ? 'animate-scale-in' : ''}`}>
+        <div ref={titleRef} className={`text-center mb-16 ${titleVisible ? 'animate-fade-in' : 'opacity-0'}`}>
+          <div className="inline-block bg-emerald-400 border-4 border-black px-6 py-3 rotate-1 mb-6 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
             <h2 className="text-5xl sm:text-6xl font-black">PORTFOLIO</h2>
           </div>
-          <p className={`text-xl font-bold max-w-2xl mx-auto ${titleVisible ? 'animate-fade-in animation-delay-200' : ''}`}>
+          <p className="text-xl font-bold max-w-2xl mx-auto">
             Real-world projects demonstrating enterprise-grade Salesforce solutions
           </p>
         </div>
 
-        <div ref={profileRef} className={`bg-black text-white border-4 border-black p-8 sm:p-12 mb-16 -rotate-1 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] ${profileVisible ? 'animate-rotate-in' : 'opacity-0'}`}>
+        <div className="bg-black text-white border-4 border-black p-8 sm:p-12 mb-16 -rotate-1 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)]">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div>
               <div className="flex items-center gap-4 mb-6">
@@ -111,22 +107,21 @@ function Portfolio() {
         </div>
 
         <div className="mb-16">
-          <h3 ref={projectsTitleRef} className={`text-4xl font-black mb-8 text-center ${projectsTitleVisible ? 'opacity-100' : 'opacity-0'}`}>
-            <span className={`bg-rose-400 border-4 border-black px-6 py-2 inline-block -rotate-1 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] ${projectsTitleVisible ? 'animate-scale-in' : ''}`}>
+          <h3 className="text-4xl font-black mb-8 text-center">
+            <span className="bg-rose-400 border-4 border-black px-6 py-2 inline-block -rotate-1 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
               KEY PROJECTS
             </span>
           </h3>
 
-          <div ref={projectsRef} className={`grid grid-cols-1 lg:grid-cols-2 gap-8 ${projectsVisible ? 'opacity-100' : 'opacity-0'}`}>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {projects.map((project, index) => {
               const Icon = project.icon;
-              const animationDelay = index === 1 ? 'animation-delay-200' : index === 2 ? 'animation-delay-400' : index === 3 ? 'animation-delay-600' : '';
               return (
                 <div
                   key={project.title}
                   className={`${project.color} border-4 border-black p-8 ${
                     index % 2 === 0 ? 'rotate-1' : '-rotate-1'
-                  } hover:rotate-0 transition-all shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] ${projectsVisible ? `animate-scale-in ${animationDelay}` : ''}`}
+                  } hover:rotate-0 transition-all shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)]`}
                 >
                   <div className="space-y-4">
                     <div className="flex items-start gap-4">
@@ -158,7 +153,7 @@ function Portfolio() {
           </div>
         </div>
 
-        <div ref={certsRef} className={`bg-gradient-to-r from-orange-400 to-cyan-300 border-4 border-black p-8 sm:p-12 rotate-1 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] ${certsVisible ? 'animate-slide-up' : 'opacity-0'}`}>
+        <div className="bg-gradient-to-r from-orange-400 to-cyan-300 border-4 border-black p-8 sm:p-12 rotate-1 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)]">
           <div className="flex items-center gap-4 mb-8 justify-center">
             <Award className="w-12 h-12" strokeWidth={3} />
             <h3 className="text-4xl font-black text-center">CERTIFICATIONS & EXPERTISE</h3>

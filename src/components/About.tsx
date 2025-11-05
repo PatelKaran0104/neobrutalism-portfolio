@@ -3,9 +3,6 @@ import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 function About() {
   const { elementRef: titleRef, isVisible: titleVisible } = useScrollAnimation();
-  const { elementRef: statsRef, isVisible: statsVisible } = useScrollAnimation();
-  const { elementRef: contentRef, isVisible: contentVisible } = useScrollAnimation();
-  const { elementRef: missionRef, isVisible: missionVisible } = useScrollAnimation();
   const stats = [
     { number: '2+', label: 'YEARS EXPERIENCE', color: 'bg-rose-400' },
     { number: '4+', label: 'MAJOR PROJECTS', color: 'bg-cyan-300' },
@@ -43,21 +40,20 @@ function About() {
   return (
     <div className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-orange-100 to-amber-50">
       <div className="max-w-7xl mx-auto">
-        <div ref={titleRef} className={`text-center mb-16 ${titleVisible ? 'opacity-100' : 'opacity-0'}`}>
-          <div className={`inline-block bg-rose-400 border-4 border-black px-6 py-3 -rotate-1 mb-6 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] ${titleVisible ? 'animate-scale-in' : ''}`}>
+        <div ref={titleRef} className={`text-center mb-16 ${titleVisible ? 'animate-fade-in' : 'opacity-0'}`}>
+          <div className="inline-block bg-rose-400 border-4 border-black px-6 py-3 -rotate-1 mb-6 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
             <h2 className="text-5xl sm:text-6xl font-black">ABOUT ME</h2>
           </div>
         </div>
 
-        <div ref={statsRef} className={`grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 ${statsVisible ? 'opacity-100' : 'opacity-0'}`}>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
           {stats.map((stat, index) => {
-            const animationDelay = index === 1 ? 'animation-delay-200' : index === 2 ? 'animation-delay-400' : index === 3 ? 'animation-delay-600' : '';
             return (
               <div
                 key={stat.label}
                 className={`${stat.color} border-4 border-black p-6 text-center ${
                   index % 2 === 0 ? 'rotate-1' : '-rotate-1'
-                } hover:rotate-0 transition-all shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] ${statsVisible ? `animate-scale-in ${animationDelay}` : ''}`}
+                } hover:rotate-0 transition-all shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]`}
               >
               <div className="text-4xl sm:text-5xl font-black mb-2">{stat.number}</div>
               <div className="font-bold text-sm sm:text-base">{stat.label}</div>
@@ -66,9 +62,9 @@ function About() {
           })}
         </div>
 
-        <div ref={contentRef} className={`bg-white border-4 border-black p-8 sm:p-12 mb-16 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] ${contentVisible ? 'animate-slide-up' : 'opacity-0'}`}>
+        <div className="bg-white border-4 border-black p-8 sm:p-12 mb-16 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)]">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className={contentVisible ? 'animate-slide-right' : 'opacity-0'}>
+            <div>
               <h3 className="text-4xl sm:text-5xl font-black mb-6 leading-tight">
                 BUILDING{' '}
                 <span className="bg-emerald-300 px-2 border-2 border-black inline-block rotate-1">
@@ -91,7 +87,7 @@ function About() {
               </p>
             </div>
 
-            <div className={`space-y-4 ${contentVisible ? 'animate-slide-left animation-delay-200' : 'opacity-0'}`}>
+            <div className="space-y-4">
               {values.map((value, index) => {
                 const Icon = value.icon;
                 return (
@@ -111,7 +107,7 @@ function About() {
           </div>
         </div>
 
-        <div ref={missionRef} className={`bg-black text-white border-4 border-black p-8 sm:p-12 -rotate-1 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] ${missionVisible ? 'animate-rotate-in' : 'opacity-0'}`}>
+        <div className="bg-black text-white border-4 border-black p-8 sm:p-12 -rotate-1 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)]">
           <div className="text-center max-w-3xl mx-auto">
             <h3 className="text-4xl sm:text-5xl font-black mb-6">MY MISSION</h3>
             <p className="text-xl sm:text-2xl font-bold leading-relaxed">

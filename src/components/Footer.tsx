@@ -83,26 +83,12 @@ function Footer() {
         </div>
 
         <div className="border-t-4 border-white pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex flex-col md:flex-row justify-center items-center gap-4">
             <p className="font-bold text-center md:text-left">
               {currentYear} Karan Patel. Built with{' '}
               <Heart className="inline w-5 h-5 text-rose-400 fill-rose-400" /> and code
             </p>
-            <div className="flex flex-wrap gap-4 font-bold">
-              <a href="#" className="hover:text-cyan-300 transition-colors">
-                Privacy Policy
-              </a>
-              <span>|</span>
-              <a href="#" className="hover:text-cyan-300 transition-colors">
-                Terms of Service
-              </a>
-              <span>|</span>
-              <a href="#" className="hover:text-cyan-300 transition-colors">
-                Accessibility
-              </a>
-            </div>
-          </div>
-
+          </div>   
           <div className="mt-6 text-center">
             <p className="font-bold text-sm">
               Designed with Neobrutalism aesthetics to showcase modern web development and design principles

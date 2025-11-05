@@ -3,8 +3,6 @@ import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 function Services() {
   const { elementRef: titleRef, isVisible: titleVisible } = useScrollAnimation();
-  const { elementRef: cardsRef, isVisible: cardsVisible } = useScrollAnimation();
-  const { elementRef: footerRef, isVisible: footerVisible } = useScrollAnimation();
   const services = [
     {
       icon: Cloud,
@@ -43,11 +41,11 @@ function Services() {
   return (
     <div className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-7xl mx-auto">
-        <div ref={titleRef} className={`text-center mb-16 ${titleVisible ? 'opacity-100' : 'opacity-0'}`}>
-          <div className={`inline-block bg-yellow-300 border-4 border-black px-6 py-3 rotate-1 mb-6 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] ${titleVisible ? 'animate-scale-in' : ''}`}>
+        <div ref={titleRef} className={`text-center mb-16 ${titleVisible ? 'animate-fade-in' : 'opacity-0'}`}>
+          <div className="inline-block bg-yellow-300 border-4 border-black px-6 py-3 rotate-1 mb-6 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
             <h2 className="text-5xl sm:text-6xl font-black">EXPERTISE</h2>
           </div>
-          <p className={`text-xl font-bold max-w-2xl mx-auto ${titleVisible ? 'animate-fade-in animation-delay-200' : ''}`}>
+          <p className="text-xl font-bold max-w-2xl mx-auto">
             Delivering enterprise solutions with{' '}
             <span className="bg-emerald-300 px-2 border-2 border-black">
               cutting-edge technology
@@ -55,17 +53,15 @@ function Services() {
           </p>
         </div>
 
-        <div ref={cardsRef} className={`grid grid-cols-1 md:grid-cols-2 gap-8 ${cardsVisible ? 'opacity-100' : 'opacity-0'}`}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {services.map((service, index) => {
             const Icon = service.icon;
             const rotation = index % 2 === 0 ? '-rotate-1' : 'rotate-1';
 
-            const animationDelay = index === 1 ? 'animation-delay-200' : index === 2 ? 'animation-delay-400' : index === 3 ? 'animation-delay-600' : '';
-
             return (
               <div
                 key={service.title}
-                className={`${service.color} border-4 border-black p-8 ${rotation} hover:rotate-0 transition-all shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-1 hover:-translate-y-1 ${cardsVisible ? `animate-scale-in ${animationDelay}` : ''}`}
+                className={`${service.color} border-4 border-black p-8 ${rotation} hover:rotate-0 transition-all shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-1 hover:-translate-y-1`}
               >
                 <div className="flex items-start justify-between mb-4">
                   <Icon className="w-16 h-16" strokeWidth={3} />
@@ -86,7 +82,7 @@ function Services() {
           })}
         </div>
 
-        <div ref={footerRef} className={`mt-16 bg-emerald-300 border-4 border-black p-8 rotate-1 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] ${footerVisible ? 'animate-slide-up' : 'opacity-0'}`}>
+        <div className="mt-16 bg-emerald-300 border-4 border-black p-8 rotate-1 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
               <h3 className="text-3xl font-black mb-2">ADDITIONAL SKILLS</h3>

@@ -6,5 +6,5 @@ Allow: /
 # Disallow: /admin/
 # Disallow: /private/
 
-# Sitemap location (update with your actual domain after deployment)
-Sitemap: https://your-netlify-site.netlify.app/sitemap.xml
+# Sitemap location
+Sitemap: https://karanpatel.live/sitemap.xml

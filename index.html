@@ -35,8 +35,8 @@
     <meta property="og:url" content="https://karanpatel.live/" />
     <meta property="og:title" content="Karan Patel - Expert Salesforce Developer | LWC & Apex Specialist" />
     <meta property="og:description" content="🚀 Certified Salesforce Developer in Germany with 2+ years experience. Expert in Lightning Web Components, Apex & Custom Solutions. Available for hire!" />
-    <meta property="og:image" content="https://karanpatel.live/karan.JPG" />
-    <meta property="og:image:secure_url" content="https://karanpatel.live/karan.JPG" />
+    <meta property="og:image" content="https://karanpatel.live/karan.jpg" />
+    <meta property="og:image:secure_url" content="https://karanpatel.live/karan.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Karan Patel - Salesforce Developer Portfolio" />
@@ -48,7 +48,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Karan Patel - Expert Salesforce Developer | LWC & Apex Specialist" />
     <meta name="twitter:description" content="🚀 Certified Salesforce Developer in Germany. Expert in Lightning Web Components, Apex & Custom Solutions. 2+ years experience, 4+ certifications." />
-    <meta name="twitter:image" content="https://karanpatel.live/karan.JPG" />
+    <meta name="twitter:image" content="https://karanpatel.live/karan.jpg" />
     <meta name="twitter:image:alt" content="Karan Patel - Salesforce Developer" />
     <meta name="twitter:creator" content="@karanpatel" />
     <meta name="twitter:site" content="@karanpatel" />
@@ -84,7 +84,7 @@
       "@type": "Person",
       "name": "Karan Patel",
       "url": "https://karanpatel.live",
-      "image": "https://karanpatel.live/karan.JPG",
+      "image": "https://karanpatel.live/karan.jpg",
       "jobTitle": "Salesforce Developer",
       "description": "Expert Salesforce Developer specializing in Lightning Web Components (LWC), Apex Programming, and custom Salesforce solutions with 2+ years of professional experience and 4+ official certifications.",
       "email": "khpatel0104@gmail.com",
@@ -182,8 +182,8 @@
       "@type": "ProfessionalService",
       "name": "Karan Patel - Salesforce Development Services",
       "url": "https://karanpatel.live",
-      "logo": "https://karanpatel.live/karan.JPG",
-      "image": "https://karanpatel.live/karan.JPG",
+      "logo": "https://karanpatel.live/karan.jpg",
+      "image": "https://karanpatel.live/karan.jpg",
       "description": "Expert Salesforce development services including custom Lightning Web Components (LWC), Apex programming, Sales & Service Cloud implementation, API integration, process automation, and Salesforce consultation for businesses in Germany and worldwide.",
       "address": {
         "@type": "PostalAddress",
@@ -317,19 +317,23 @@
       ]
     }
     </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
     
-    <!-- Google tag (gtag.js) -->
+    <!-- Google Analytics (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MB50Z7KSYE"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'G-MB50Z7KSYE');
+      gtag('config', 'G-MB50Z7KSYE', {
+        'send_page_view': true,
+        'anonymize_ip': true,  // GDPR compliance
+        'cookie_flags': 'SameSite=None;Secure'  // Modern cookie best practices
+      });
     </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

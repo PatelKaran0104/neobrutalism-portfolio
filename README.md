@@ -59,7 +59,7 @@ This portfolio embraces **Neobrutalism** - a modern design trend characterized b
 ```
 neobrutalism-portfolio/
 ├── public/
-│   ├── karan.JPG                    # Profile image
+│   ├── karan.jpg                    # Profile image
 │   ├── icons8-resume-website-*.png  # Favicons
 │   ├── robots.txt                   # SEO crawling rules
 │   └── sitemap.xml                  # Site structure

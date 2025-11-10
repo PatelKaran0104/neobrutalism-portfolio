@@ -11,7 +11,7 @@ function Hero() {
               <div className="relative">
                 <div className="w-48 h-48 border-6 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] rotate-3 overflow-hidden bg-gradient-to-br from-cyan-200 to-yellow-200">
                   <img 
-                    src="/karan.JPG" 
+                    src="/karan.jpg" 
                     alt="Karan Patel - Salesforce Developer"
                     className="w-full h-full object-contain object-center"
                     loading="eager"
@@ -58,7 +58,7 @@ function Hero() {
               <div className="relative">
                 <div className="w-full aspect-square max-w-md mx-auto border-6 border-black shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] -rotate-2 overflow-hidden bg-gradient-to-br from-cyan-200 to-yellow-200">
                   <img 
-                    src="/karan.JPG" 
+                    src="/karan.jpg" 
                     alt="Karan Patel - Salesforce Developer"
                     className="w-full h-full object-contain object-center"
                     loading="eager"

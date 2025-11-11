@@ -32,7 +32,7 @@ function Header({ activeSection, setActiveSection }: HeaderProps) {
         <div className="flex justify-between items-center py-4">
           <div className="flex items-center">
             <div className="bg-yellow-400 border-4 border-white px-6 py-2 -rotate-1 hover:rotate-0 transition-transform cursor-pointer text-black">
-              <h1 className="text-2xl font-black tracking-tight">KARAN</h1>
+              <div className="text-2xl font-black tracking-tight">KARAN</div>
             </div>
           </div>
 
@@ -55,6 +55,8 @@ function Header({ activeSection, setActiveSection }: HeaderProps) {
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden bg-white text-black p-2 border-4 border-white"
+            aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={isMenuOpen}
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
